@@ -1,16 +1,18 @@
 using System.Collections.Generic;
-using System;
 
 namespace ToDoList.Models
 {
   public class Task
   {
     private string _description;
-    private static List<string> _instances = new List<string> {};
+    private int _id;
+    private static List<Task> _instances = new List<Task> {};
 
     public Task (string description)
     {
       _description = description;
+      _instances.Add(this);
+      _id = _instances.Count;
     }
     public string GetDescription()
     {
@@ -20,17 +22,21 @@ namespace ToDoList.Models
     {
       _description = newDescription;
     }
-    public static List<string> GetAll()
+    public int GetId()
+    {
+      return _id;
+    }
+    public static List<Task> GetAll()
     {
       return _instances;
-    }
-    public void Save()
-    {
-      _instances.Add(_description);
     }
     public static void ClearAll()
     {
       _instances.Clear();
+    }
+    public static Task Find(int searchId)
+    {
+      return _instances[searchId-1];
     }
   }
 }
