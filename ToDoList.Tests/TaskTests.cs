@@ -24,5 +24,26 @@ namespace ToDoList.TestTools
       //Assert
       Assert.AreEqual(0, result);
     }
+
+    [TestMethod]
+    public void Equals_ReturnsTrueIfDescriptionsAreTheSame_Task()
+    {
+      Task firstTask = new Task("Mow the lawn");
+      Task secondTask = new Task("Mow the lawn");
+
+      Assert.AreEqual(firstTask, secondTask);
+    }
+
+    [TestMethod]
+    public void Save_SavesToDatabase_TaskList()
+    {
+      Task testTask = new Task("Mow the lawn");
+
+      testTask.Save();
+      List<Task> result = Task.GetAll();
+      List<Task> testList = new List<Task>{testTask};
+
+      CollectionAssert.AreEqual(testList, result);
+    }
   }
 }
