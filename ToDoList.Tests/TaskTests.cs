@@ -45,5 +45,19 @@ namespace ToDoList.TestTools
 
       CollectionAssert.AreEqual(testList, result);
     }
+
+    [TestMethod]
+    public void Save_AssignsIdToObject_Id()
+    {
+        Task testTask = new Task("Mow the lawn");
+
+        testTask.Save();
+        Task savedTask = Task.GetAll()[0];
+
+        int result = savedTask.GetId();
+        int testId = testTask.GetId();
+
+        Assert.AreEqual(testId, result);
+    }
   }
 }
