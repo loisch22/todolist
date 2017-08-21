@@ -147,5 +147,23 @@ public class TaskTest : IDisposable
       //Assert
       CollectionAssert.AreEqual(testCategoryTasks, resultCategoryTasks);
     }
+    [TestMethod]
+    public void Delete_DeletesCategoryAssociationsFromDatabase_CategoryList()
+    {
+      Task testTask = new Task("Mow the lawn");
+      testTask.Save();
+
+      string testName = "Home stuff";
+      Category testCategory = new Category(testName);
+      testCategory.Save();
+
+      testCategory.AddTask(testTask);
+      testCategory.Delete();
+
+      List<Category> resultTaskCategories = testTask.GetCategories();
+      List<Category> testTaskCategories = new List<Category> {};
+
+      CollectionAssert.AreEqual(testTaskCategories, resultTaskCategories);
+    }
   }
 }
